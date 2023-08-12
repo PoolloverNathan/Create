@@ -152,8 +152,8 @@ public class TrackPlacement {
 		if (pos1.equals(pos2))
 			return info.withMessage("second_point");
 		if (pos1.distSqr(pos2) > maxLength * maxLength)
-			return info.withMessage("too_far")
-				.tooJumbly();
+			//return info.withMessage("too_far")
+			//	.tooJumbly();
 		if (!state1.hasProperty(TrackBlock.HAS_BE))
 			return info.withMessage("original_missing");
 		if (level.getBlockEntity(pos2) instanceof TrackBlockEntity tbe && tbe.isTilted())
@@ -230,8 +230,8 @@ public class TrackPlacement {
 
 					double targetT = u <= 1 ? 3 : u * 2;
 
-					if (t < targetT)
-						return info.withMessage("too_sharp");
+					//if (t < targetT)
+					//	return info.withMessage("too_sharp");
 
 					// This is for standardising s curve sizes
 					if (t > targetT) {
@@ -248,12 +248,12 @@ public class TrackPlacement {
 		if (slope) {
 			if (!skipCurve)
 				return info.withMessage("slope_turn");
-			if (Mth.equal(normal1.dot(normal2), 0))
-				return info.withMessage("opposing_slopes");
-			if ((axis1.y < 0 || axis2.y > 0) && ascend > 0)
-				return info.withMessage("leave_slope_ascending");
-			if ((axis1.y > 0 || axis2.y < 0) && ascend < 0)
-				return info.withMessage("leave_slope_descending");
+			//if (Mth.equal(normal1.dot(normal2), 0))
+			//	return info.withMessage("opposing_slopes");
+			//if ((axis1.y < 0 || axis2.y > 0) && ascend > 0)
+			//	return info.withMessage("leave_slope_ascending");
+			//if ((axis1.y > 0 || axis2.y < 0) && ascend < 0)
+			//	return info.withMessage("leave_slope_descending");
 
 			skipCurve = false;
 			info.end1Extent = 0;
@@ -271,10 +271,10 @@ public class TrackPlacement {
 
 			double turnSize = Math.min(dist1, dist2);
 			if (intersect[0] < 0 || intersect[1] < 0)
-				return info.withMessage("too_sharp")
-					.tooJumbly();
-			if (turnSize < 2)
-				return info.withMessage("too_sharp");
+				//return info.withMessage("too_sharp")
+				//	.tooJumbly();
+			//if (turnSize < 2)
+			//	return info.withMessage("too_sharp");
 
 			// This is for standardising curve sizes
 			if (turnSize > 2 && !maximiseTurn) {
@@ -290,13 +290,13 @@ public class TrackPlacement {
 			int hDistance = info.end1Extent;
 			if (axis1.y == 0 || !Mth.equal(absAscend + 1, dist / axis1.length())) {
 
-				if (axis1.y != 0 && axis1.y == -axis2.y)
-					return info.withMessage("ascending_s_curve");
+				//if (axis1.y != 0 && axis1.y == -axis2.y)
+				//	return info.withMessage("ascending_s_curve");
 
 				info.end1Extent = 0;
 				double minHDistance = Math.max(absAscend < 4 ? absAscend * 4 : absAscend * 3, 6) / axis1.length();
-				if (hDistance < minHDistance)
-					return info.withMessage("too_steep");
+				//if (hDistance < minHDistance)
+				//	return info.withMessage("too_steep");
 				if (hDistance > minHDistance) {
 					int correction = (int) (hDistance - minHDistance);
 					info.end1Extent = maximiseTurn ? 0 : correction / 2 + (correction % 2);
@@ -312,8 +312,8 @@ public class TrackPlacement {
 		if (!parallel) {
 			float absAngle = Math.abs(AngleHelper.deg(angle));
 			if (absAngle < 60 || absAngle > 300)
-				return info.withMessage("turn_90")
-					.tooJumbly();
+				//return info.withMessage("turn_90")
+				//	.tooJumbly();
 
 			intersect = VecHelper.intersect(end1, end2, normedAxis1, normedAxis2, Axis.Y);
 			double dist1 = Math.abs(intersect[0]);
@@ -330,17 +330,17 @@ public class TrackPlacement {
 			boolean ninety = (absAngle + .25f) % 90 < 1;
 
 			if (intersect[0] < 0 || intersect[1] < 0)
-				return info.withMessage("too_sharp")
-					.tooJumbly();
+				//return info.withMessage("too_sharp")
+				//	.tooJumbly();
 
 			double minTurnSize = ninety ? 7 : 3.25;
 			double turnSizeToFitAscend =
 				minTurnSize + (ninety ? Math.max(0, absAscend - 3) * 2f : Math.max(0, absAscend - 1.5f) * 1.5f);
 
-			if (turnSize < minTurnSize)
-				return info.withMessage("too_sharp");
-			if (turnSize < turnSizeToFitAscend)
-				return info.withMessage("too_steep");
+			//if (turnSize < minTurnSize)
+			//	return info.withMessage("too_sharp");
+			//if (turnSize < turnSizeToFitAscend)
+			//	return info.withMessage("too_steep");
 
 			// This is for standardising curve sizes
 			if (!maximiseTurn) {
